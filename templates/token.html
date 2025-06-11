@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ввод токена — TapTapGamesCreator</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2a2a72 0%, #009ffd 100%);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            background-color: #fff;
+            color: #2a2a72;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+        .message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>🔐 Введите токен вашего бота</h2>
+        <input type="text" id="tokenInput" placeholder="123456:ABC-DEF1234ghIkl..." />
+        <button onclick="checkToken()">Проверить токен</button>
+        <div class="message" id="messageBox"></div>
+    </div>
+
+    <script>
+        async function checkToken() {
+            const token = document.getElementById("tokenInput").value;
+            const msg = document.getElementById("messageBox");
+            msg.textContent = "⏳ Проверка...";
+
+            try {
+                const res = await fetch("/check_token", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ token })
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    msg.textContent = "✅ Токен валиден! Переход...";
+                    setTimeout(() => { window.location.href = "/guide"; }, 1000);
+                } else {
+                    msg.textContent = "❌ Неверный токен!";
+                }
+            } catch (err) {
+                msg.textContent = "⚠️ Ошибка соединения.";
+            }
+        }
+    </script>
+</body>
+</html>

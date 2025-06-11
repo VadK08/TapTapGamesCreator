@@ -2,31 +2,67 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>TapTapGamesCreator</title>
-  <link rel="stylesheet" href="/static/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TapTapGamesCreator — Старт</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+        }
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        ol {
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 10px auto;
+            padding: 15px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            background-color: #4e7fff;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button.secondary {
+            background-color: #888;
+        }
+    </style>
 </head>
 <body>
-  <div class="card">
-    <h2>👋 Привет в TapTapGamesCreator!</h2>
-    <p>Создай Telegram-тапалку прямо здесь!</p>
-
-    <input type="text" id="token" placeholder="Вставь токен от BotFather..." />
-    <button onclick="submitToken()">Начать</button>
-  </div>
-
-  <script>
-    async function submitToken() {
-      const token = document.getElementById("token").value;
-      const res = await fetch("/auth", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token })
-      });
-      const data = await res.json();
-      if (data.ok) window.location.href = "/constructor";
-      else alert("❌ Неверный токен!");
-    }
-  </script>
+    <div class="container">
+        <h1>👋 Добро пожаловать в TapTapGamesCreator</h1>
+        <ol>
+            <li>Перейдите в <b>@BotFather</b></li>
+            <li>Введите команду <code>/newbot</code></li>
+            <li>Придумайте имя и логин для бота</li>
+            <li>Скопируйте выданный токен</li>
+            <li>Нажмите "Я получил токен" ниже</li>
+        </ol>
+        <a class="button" href="https://t.me/BotFather" target="_blank">Перейти в @BotFather</a>
+        <a class="button secondary" href="/token">Я получил токен</a>
+    </div>
 </body>
 </html>

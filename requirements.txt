@@ -1,0 +1,7 @@
+
+fastapi
+uvicorn
+jinja2
+aiofiles
+requests
+python-dotenv

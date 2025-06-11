@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>TapTapGamesCreator</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="card">
+    <h2>👋 Привет в TapTapGamesCreator!</h2>
+    <p>Создай Telegram-тапалку прямо здесь!</p>
+
+    <input type="text" id="token" placeholder="Вставь токен от BotFather..." />
+    <button onclick="submitToken()">Начать</button>
+  </div>
+
+  <script>
+    async function submitToken() {
+      const token = document.getElementById("token").value;
+      const res = await fetch("/auth", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token })
+      });
+      const data = await res.json();
+      if (data.ok) window.location.href = "/constructor";
+      else alert("❌ Неверный токен!");
+    }
+  </script>
+</body>
+</html>
